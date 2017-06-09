@@ -15,7 +15,7 @@ describe('TodoAPI', () => {
     it('should set valid todos array', () => {
       var todos = [
         {
-          id : 23,
+          id: 23,
           test: 'Test',
           completed: false
         }
@@ -26,14 +26,12 @@ describe('TodoAPI', () => {
     });
 
     it('should not set valid todos array', () => {
-      var badTodos =
-        {
-          a : 'b'
-        };
+      var badTodos = {
+        a: 'b'
+      };
       TodoAPI.setTodos(badTodos);
       expect(localStorage.getItem('todos')).toBe(null);
     });
-
 
   });
 
@@ -46,7 +44,7 @@ describe('TodoAPI', () => {
     it('should return toods if valid array inlocalStorage', () => {
       var todos = [
         {
-          id : 23,
+          id: 23,
           test: 'Test',
           completed: false
         }
@@ -57,17 +55,47 @@ describe('TodoAPI', () => {
     });
   });
 
-  // it('should call onToggle props with id on click', ()=> {
-  //   var todoData = {
-  //     id: 199,
-  //     text: 'Test features',
-  //     completed : true
-  //   }
-  //
-  //   var spy = expect.createSpy();
-  //   var todo = TestUtils.renderIntoDocument(<Todo {... todoData} onToggle={spy} />);
-  //   var $el  = $(ReactDOM.findDOMNode(todo));
-  //   TestUtils.Simulate.click($el[0]);
-  //   expect(spy).toHaveBeenCalledWith(199);
-  // });
+  describe('filterTodos', () => {
+    var todos = [
+      {
+        id: 1,
+        text: 'Test 1',
+        completed: true
+      }, {
+        id: 2,
+        text: 'Test 2',
+        completed: false
+      }, {
+        id: 3,
+        text: 'Test 3',
+        completed: true
+      }
+    ];
+
+    it('should return all items if showCompleted is true', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '');
+      expect(filteredTodos.length).toBe(3);
+    });
+
+    it('should return non-completed items if showCompleted is false', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, false, '');
+      expect(filteredTodos.length).toBe(1);
+    });
+    it('should sort by completed status', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '');
+      expect(filteredTodos[0].completed).toBe(false);
+    });
+
+    it('should filter todos by searchText', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '2');
+      expect(filteredTodos.length).toBe(1);
+    });
+
+    it('should return all todos if searchText is empty', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '');
+      expect(filteredTodos.length).toBe(3);
+    });
+
+  });
+
 });
