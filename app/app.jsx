@@ -1,13 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 //var {Route, Router, IndexRoute} = require('react-router');
+var {Provider} = require('react-redux');
 var TodoApp = require('TodoApp');
 
 var actions = require('actions');
 var store = require('configureStore').configure();
 
-
-store.subscribe(() =>{
+store.subscribe(() => {
   console.log('New state', store.getState());
 });
 
@@ -36,8 +36,7 @@ require('applicationStyles');
 //console.log(objTwo);
 
 ReactDOM.render(
-<TodoApp/>,
 
-
-  document.getElementById('app')
-);
+  <Provider store={store}>
+  <TodoApp/>
+</Provider>, document.getElementById('app'));
