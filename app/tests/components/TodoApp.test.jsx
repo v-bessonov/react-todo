@@ -11,28 +11,28 @@ var TodoApp = require('TodoApp');
 import TodoList from 'TodoList'
 
 describe('TodoApp', () => {
-  beforeEach(() => {
-    localStorage.removeItem('todos');
-  });
+  // beforeEach(() => {
+  //   localStorage.removeItem('todos');
+  // });
 
   it('should properly run tests', () => {
     expect(TodoApp).toExist();
   });
 
   it('should render TodoList', () => {
-    var todos =[{
-      id : '111',
-      text : 'test',
-      completed: false,
-      completedAt: undefined,
-      createdAt: 33000
-    }];
-    var action = {
-      type: 'ADD_TODOS',
-      todos: todos
-    };
+    // var todos =[{
+    //   id : '111',
+    //   text : 'test',
+    //   completed: false,
+    //   completedAt: undefined,
+    //   createdAt: 33000
+    // }];
+    // var action = {
+    //   type: 'ADD_TwebpackODOS',
+    //   todos: todos
+    // };
     var store = configureStore.configure();
-    store.dispatch(action);
+    //store.dispatch(action);
 
     var provider = TestUtils.renderIntoDocument(
       <Provider store={store}>

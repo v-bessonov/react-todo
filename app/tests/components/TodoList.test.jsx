@@ -40,6 +40,7 @@ describe('TodoList', ()=>{
         createdAt: 500
       }
     ];
+
     var store = configure({
       todos
     });

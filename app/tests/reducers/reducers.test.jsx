@@ -31,21 +31,28 @@ describe('Reducers', () => {
     it('should add new todo', () => {
       var action = {
         type: 'ADD_TODO',
-        text: 'Walk the dog'
+        todo: {
+          id: 'abc123',
+          text: 'Walk the dog',
+          completed: false,
+          completedAt: 123456
+        }
       };
       var res = reducers.todosReducer(df([]), df(action));
       expect(res.length).toEqual(1);
-      expect(res[0].text).toEqual(action.text);
+      expect(res[0]).toEqual(action.todo);
     });
 
     it('should toggle todo', () => {
-      var todos = [{
-        id: '123',
-        text: 'test',
-        completed : true,
-        createdAt: 123,
-        completedAt: 125
-      }];
+      var todos = [
+        {
+          id: '123',
+          text: 'test',
+          completed: true,
+          createdAt: 123,
+          completedAt: 125
+        }
+      ];
 
       var action = {
         type: 'TOGGLE_TODO',
@@ -57,23 +64,24 @@ describe('Reducers', () => {
     });
 
     it('should add existing todo', () => {
-      var todos =[{
-        id : '111',
-        text : 'test',
-        completed: false,
-        completedAt: undefined,
-        createdAt: 33000
-      }];
+      var todos = [
+        {
+          id: '111',
+          text: 'test',
+          completed: false,
+          completedAt: undefined,
+          createdAt: 33000
+        }
+      ];
       var action = {
         type: 'ADD_TODOS',
         todos
       };
-      var res = reducers.todosReducer(df(todos), df(action));
+      var res = reducers.todosReducer(df([]), df(action));
       expect(res.length).toEqual(1);
       expect(res[0]).toEqual(todos[0]);
     });
 
   });
-
 
 });
