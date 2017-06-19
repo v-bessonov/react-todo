@@ -1,19 +1,50 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-import { HashRouter,  Route,  Link} from 'react-router-dom';
+//import {Router } from 'react-router';
+//import { HashRouter,  Route,  Link, Switch } from 'react-router-dom';
+
 //var {Route, Router, IndexRoute} = require('react-router');
 var {Provider} = require('react-redux');
 //var TodoApp = require('TodoApp');
-import TodoApp from 'TodoApp';
+//import TodoApp from 'TodoApp';
 
 var actions = require('actions');
 var store = require('configureStore').configure();
 
-var TodoAPI  = require('TodoAPI');
+import router, {auth} from 'app/router';
 
-import Login from 'Login';
+//var TodoAPI  = require('TodoAPI');
+
+//import Login from 'Login';
+// import firebase from 'app/firebase/';
+//
+//
+// import createHashHistory from 'history/createHashHistory'
+//
+// const history = createHashHistory()
+//
+// firebase.auth().onAuthStateChanged((user)=>{
+//   if(user){
+//     //HashRouter.transitionTo('/todos');
+//     console.log(history);
+//     //hashHistory.push('/todos');
+//     //document.window.location('/todos');
+//     //console.log(hashrouter);
+//     history.push('/todos');
+//   }else{
+//     //console.log(HashRouter.history);
+//     //hashHistory.push('/');
+//     //HashRouter.transitionTo('/');
+//       //document.window.location('/');
+//       //console.log(hashrouter);
+//       console.log(history);
+//       history.push('/');
+//   }
+// });
+
+auth();
+
 //import './../playground/firebase/index'
-
 
 // store.subscribe(() => {
 //   var state = store.getState();
@@ -51,17 +82,19 @@ require('applicationStyles');
 // };
 //console.log(objTwo);
 
+// var requireLogin =(nextState, replace, next)=>{
+//   if(!firebase.auth().currentUser){
+//     console.log('OnEnter');
+//     replace('/');
+//     //console.log(firebase.auth().currentUser);
+//     //history.push('/');
+//   }
+//   next();
+// };
+
 ReactDOM.render(
 
   <Provider store={store}>
-
-    <HashRouter>
-          <div>
-            <Route exact path="/" component={Login}/>
-            <Route path='/todos' component={TodoApp}/>
-
-          </div>
-        </HashRouter>
-
+  {router}
 
 </Provider>, document.getElementById('app'));

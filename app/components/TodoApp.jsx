@@ -8,6 +8,9 @@ import TodoList from 'TodoList'
 import AddTodo from 'AddTodo'
 //var TodoSearch = require('TodoSearch');
 import TodoSearch from 'TodoSearch'
+
+import {checkAuth} from 'app/auth/';
+
 // var uuid = require('uuid');
 //
 // var moment = require('moment');
@@ -61,7 +64,19 @@ export var TodoApp = React.createClass({
   //     searchText: searchText.toLowerCase()
   //   });
   // },
-  onLogout(e){
+  componentWillMount() {
+    this.checkAuthentication(this.props);
+  },
+  checkAuthentication(params) {
+    const {history} = params;
+    //console.log(history);
+    //console.log(checkAuth);
+    if (!checkAuth()) {
+      //console.log(checkAuth());
+      history.push('/')
+    };
+  },
+  onLogout(e) {
     var {dispatch} = this.props;
     e.preventDefault();
     dispatch(actions.startLogout());
