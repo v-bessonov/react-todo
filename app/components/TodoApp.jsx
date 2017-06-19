@@ -71,7 +71,7 @@ export var TodoApp = React.createClass({
     const {history} = params;
     //console.log(history);
     //console.log(checkAuth);
-    if (!checkAuth()) {
+    if (history && !checkAuth()) {
       //console.log(checkAuth());
       history.push('/')
     };

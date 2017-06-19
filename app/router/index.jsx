@@ -10,14 +10,18 @@ import createHashHistory from 'history/createHashHistory'
 
 const history = createHashHistory();
 
+var actions = require('actions');
+var store = require('configureStore').configure();
+
 export var auth = () => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       //HashRouter.transitionTo('/todos');
-      console.log(history);
+      //console.log(history);
       //hashHistory.push('/todos');
       //document.window.location('/todos');
       //console.log(hashrouter);
+      store.dispatch(actions.login(user.uid));
       history.push('/todos');
     } else {
       //console.log(HashRouter.history);
@@ -25,7 +29,8 @@ export var auth = () => {
       //HashRouter.transitionTo('/');
       //document.window.location('/');
       //console.log(hashrouter);
-      console.log(history);
+      //console.log(history);
+      store.dispatch(actions.logout());
       history.push('/');
     }
   })
