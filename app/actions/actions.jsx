@@ -1,20 +1,13 @@
-import firebase, {firebaseRef} from 'app/firebase/'
+import firebase, {firebaseRef, githubProvider} from 'app/firebase/'
 import moment from 'moment'
 
 export var setSearchText = (searchText) => {
-  return {
-    type: 'SET_SEARCH_TEXT',
-    searchText
-  };
+  return {type: 'SET_SEARCH_TEXT', searchText};
 };
 
 export var addTodo = (todo) => {
-  return {
-    type: 'ADD_TODO',
-    todo
-  };
+  return {type: 'ADD_TODO', todo};
 };
-
 
 export var startAddTodo = (text) => {
   return (dispatch, getState) => {
@@ -35,17 +28,9 @@ export var startAddTodo = (text) => {
   }
 };
 
-
-
 export var addTodos = (todos) => {
-  return {
-    type: 'ADD_TODOS',
-    todos
-  };
+  return {type: 'ADD_TODOS', todos};
 };
-
-
-
 
 export var startAddTodos = () => {
   return (dispatch, getState) => {
@@ -66,19 +51,12 @@ export var startAddTodos = () => {
   }
 };
 
-
 export var toggleShowCompleted = () => {
-  return {
-    type: 'TOGGLE_SHOW_COMPLETED'
-  };
+  return {type: 'TOGGLE_SHOW_COMPLETED'};
 };
 
 export var updateTodo = (id, updates) => {
-  return {
-    type: 'UPDATE_TODO',
-    id,
-    updates
-  };
+  return {type: 'UPDATE_TODO', id, updates};
 };
 
 export var startToggleTodo = (id, completed) => {
@@ -87,10 +65,32 @@ export var startToggleTodo = (id, completed) => {
 
     var updates = {
       completed,
-      completedAt: completed ? moment().unix() : null
+      completedAt: completed
+        ? moment().unix()
+        : null
     };
     return todoRef.update(updates).then(() => {
       dispatch(updateTodo(id, updates));
+    });
+  }
+};
+
+export var startLogin = (id, completed) => {
+  return (dispatch, getState) => {
+    firebase.auth().signInWithPopup(githubProvider).then((result) => {
+      console.log('Auth worked', result);
+    }, (e) => {
+      console.log('Unable to auth', e);
+    });
+  }
+};
+
+export var startLogout = (id, completed) => {
+  return (dispatch, getState) => {
+    firebase.auth().signOut().then(() => {
+      console.log('Logged out!');
+    }, (e) => {
+      console.log('Error logout', e);
     });
   }
 };

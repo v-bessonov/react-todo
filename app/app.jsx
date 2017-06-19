@@ -1,14 +1,17 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+import { HashRouter,  Route,  Link} from 'react-router-dom';
 //var {Route, Router, IndexRoute} = require('react-router');
 var {Provider} = require('react-redux');
-var TodoApp = require('TodoApp');
+//var TodoApp = require('TodoApp');
+import TodoApp from 'TodoApp';
 
 var actions = require('actions');
 var store = require('configureStore').configure();
 
 var TodoAPI  = require('TodoAPI');
 
+import Login from 'Login';
 //import './../playground/firebase/index'
 
 
@@ -51,5 +54,14 @@ require('applicationStyles');
 ReactDOM.render(
 
   <Provider store={store}>
-  <TodoApp/>
+
+    <HashRouter>
+          <div>
+            <Route exact path="/" component={Login}/>
+            <Route path='/todos' component={TodoApp}/>
+
+          </div>
+        </HashRouter>
+
+
 </Provider>, document.getElementById('app'));
