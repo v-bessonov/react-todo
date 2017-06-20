@@ -42,7 +42,7 @@ import router, {auth} from 'app/router';
 //   }
 // });
 
-auth();
+auth(store);
 
 //import './../playground/firebase/index'
 
@@ -56,7 +56,7 @@ auth();
 // var initialTodos = TodoAPI.getTodos();
 // store.dispatch(actions.addTodos(initialTodos));
 
-store.dispatch(actions.startAddTodos());
+//store.dispatch(actions.startAddTodos());
 
 // store.dispatch(actions.addTodo('Clean the yard'));
 // store.dispatch(actions.setSearchText('yard'));
